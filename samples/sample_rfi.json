@@ -1,0 +1,13 @@
+{
+    "title": "South China Sea Movements",
+    "description": "Provide information about the movement of any vessels in the South China Sea.",
+    "info_type": [
+        "Document",
+        "Image",
+        "Video",
+        "Audio"
+    ],
+    "payment": 500,
+    "payment_currency": "USD",
+    "days_open": 30
+}
