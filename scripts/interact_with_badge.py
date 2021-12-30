@@ -7,5 +7,4 @@ badge_token = BadgeToken[0]
 
 def getHolders(token_id=1):
     tx = badge_token.ownerOf(token_id, {"from": account})
-
     print(tx)

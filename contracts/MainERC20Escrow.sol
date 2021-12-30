@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract MainEscrow is Ownable {
+contract MainERC20Escrow is Ownable {
     enum PaymentStatus {
         Pending,
         Completed,

@@ -1,4 +1,4 @@
-from brownie import network, accounts, config, Contract, MockDAI
+from brownie import network, accounts, config, Contract, MockDAI, interface
 
 DECIMALS = 18
 
@@ -9,7 +9,7 @@ LOCAL_BLOCKCHAIN_ENVIRONMENTS = NON_FORKED_LOCAL_BLOCKCHAIN_ENVIRONMENTS + [
     "matic-fork",
 ]
 
-contract_to_mock = {"dai_token": MockDAI}
+contract_to_mock = {"dai_token": MockDAI, "usdc_token": []}
 
 
 def get_account(index=None, id=None):
@@ -22,7 +22,7 @@ def get_account(index=None, id=None):
     return accounts.add(config["wallets"]["from_key"])
 
 
-def get_contract(contract_name):
+def get_contract(contract_name, source):
     """If you want to use this function, go to the brownie config and add a new entry for
     the contract that you want to be able to 'get'. Then add an entry in the in the variable 'contract_to_mock'.
     You'll see examples like the 'link_token'.
@@ -47,9 +47,15 @@ def get_contract(contract_name):
     else:
         try:
             contract_address = config["networks"][network.show_active()][contract_name]
-            contract = Contract.from_abi(
-                contract_type._name, contract_address, contract_type.abi
-            )
+            if source == 'abi':
+                contract = Contract.from_abi(
+                    contract_type._name, contract_address, contract_type.abi
+                )
+            elif source == 'interface':
+                contract = interface.IERC20(contract_address)
+            elif source == 'explorer':
+                contract = Contract.from_explorer(contract_address)
+            contract.set_alias(contract_name)
         except KeyError:
             print(
                 f"{network.show_active()} address not found, perhaps you should add it to the config or deploy mocks?"
@@ -58,6 +64,17 @@ def get_contract(contract_name):
                 f"brownie run scripts/deploy_mocks.py --network {network.show_active()}"
             )
     return contract
+
+def get_contract_address(contract_name):
+    try:
+        contract_address = config["networks"][network.show_active()][contract_name]
+    except KeyError:
+        print(
+            f"{network.show_active()} address not found, perhaps you should add it to the config or deploy mocks?"
+        )
+    return contract_address
+
+
 
 
 def get_verify_status():

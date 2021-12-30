@@ -13,6 +13,11 @@ networks:
     verify: False
   rinkeby:
     verify: True
+    usdc_token: "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b"
+    weth_token: "0xc778417e063141139fce010982780140aa0cd5ab"
+    link_token: "0x01BE23585060835E02B77ef475b0Cc51aA1e0709"
+    dai_token: "0x8ad3aa5d5ff084307d28c8f514d7a193b2bfe725"
+    matic_token: "0x83e556da6514325ee615ff868cd0d324856fa0cf"
   ganache:
     verify: False
   kovan:

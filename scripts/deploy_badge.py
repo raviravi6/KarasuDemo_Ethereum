@@ -29,8 +29,8 @@ def main():
     account = get_account()
     #non_owner = get_account(index=1)
     non_owner = '0xA2BFc4B3653F3C6F91EFF29228f5e88A1De1f684'
-    badge_name = "Validation Sample One"
-    badge_symbol = "VSOne"
+    badge_name = "Validation Sample Two"
+    badge_symbol = "VSTwo"
     badge_token = deploy_badge(account, badge_name, badge_symbol)
   #  badge_token = BadgeToken[0]
     token_id = 1
