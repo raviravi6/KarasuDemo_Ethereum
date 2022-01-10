@@ -11,8 +11,6 @@ contract MainERC20Escrow is Ownable {
         Refunded
     }
 
-    IERC20 public token;
-
     event Deposited(
         address indexed payee,
         address tokenAddress,
@@ -30,15 +28,14 @@ contract MainERC20Escrow is Ownable {
     // payee address => token address => expiration time
     mapping(address => mapping(address => uint256)) public expirations;
 
-    constructor(address _tokenAddress) {
-        token = IERC20(_tokenAddress);
-    }
+    constructor() {}
 
     function deposit(
         address _payee,
         uint256 _amount,
-        uint256 _expiration
-    ) public {
+        uint256 _expiration,
+        IERC20 token
+    ) public onlyOwner {
         require(
             token.transferFrom(msg.sender, address(this), _amount),
             "Could not transfer amount"
@@ -48,7 +45,11 @@ contract MainERC20Escrow is Ownable {
         emit Deposited(_payee, address(token), _amount);
     }
 
-    function withdraw(address payable _payee, uint256 _amount) public {
+    function withdraw(
+        address payable _payee,
+        uint256 _amount,
+        IERC20 token
+    ) public {
         uint256 totalPayment = deposits[_payee][address(token)];
         require(totalPayment >= _amount, "Not enough value");
         token.approve(_payee, _amount);
@@ -57,7 +58,7 @@ contract MainERC20Escrow is Ownable {
         emit Withdrawn(_payee, address(token), _amount);
     }
 
-    function refund(address payable _payee) public {
+    function refund(address payable _payee, IERC20 token) public onlyOwner {
         require(
             block.timestamp > expirations[_payee][address(token)],
             "The payment is still in escrow."
