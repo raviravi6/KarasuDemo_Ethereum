@@ -24,7 +24,7 @@ networks:
     verify: True
     weth_token: "0xd0A1E359811322d97991E03f863a0C30C2cF029C"
     fau_token: "0xFab46E002BbF0b4509813474841E0716E6730136"
-    link_token: "0xa36085f69e2889c224210f603d836748e7dc0088"
+    link_token: "0xad5ce863ae3e4e9394ab43d4ba0d80f419f61789"
     dai_token: "0xff795577d9ac8bd7d90ee22b6c1703490b6512fd"
     dai_usd_price_feed: "0x777A68032a88E5A84678A77Af2CD65A7b3c0775a"
     eth_usd_price_feed: "0x9326BFA02ADD2366b30bacB125260Af641031331"
