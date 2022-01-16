@@ -59,13 +59,13 @@ def main():
     cid = "bafybeig2w3jz4y2ps2tf5u42p3l5p4v73wp7zbem3xsn6efb56mlaqd4yq"
   #  cid = 'hello'
 
-    #escrow_contract = deploy_escrow_contract(account)
-    escrow_contract = ERC20EscrowCounter[-1]
+    escrow_contract = deploy_escrow_contract(account)
+   # escrow_contract = ERC20EscrowCounter[-1]
    
     amount = Web3.toWei(2, "ether")
     expiration_sec = 60
 
-    approve_token_transfer(token, escrow_contract.address, account, amount)
+    #approve_token_transfer(token, escrow_contract.address, account, amount)
    # deposit_to_escrow(escrow_contract, account, amount, expiration_sec, token, cid)
   #  set_payee(escrow_contract, account, non_owner, 1, cid)
     #withdraw_from_escrow(main_ERC20escrow, account, non_owner, amount)

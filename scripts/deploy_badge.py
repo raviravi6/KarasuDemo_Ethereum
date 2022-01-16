@@ -28,6 +28,7 @@ def burn_badge(badge_token, account, token_id):
 def main():
     account = get_account()
     #non_owner = get_account(index=1)
+    
     non_owner = '0xA2BFc4B3653F3C6F91EFF29228f5e88A1De1f684'
     badge_name = "Validation Sample Two"
     badge_symbol = "VSTwo"
