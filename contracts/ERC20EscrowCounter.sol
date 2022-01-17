@@ -41,7 +41,7 @@ contract ERC20EscrowCounter is Ownable {
     // deposit id => payee address
     mapping(uint256 => address) public payees;
 
-    constructor() {}
+    constructor() public {}
 
     function deposit(
         string memory _cid,

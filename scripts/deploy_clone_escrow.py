@@ -1,16 +1,21 @@
 from scripts.helpful_scripts import get_account, get_contract, get_contract_address
-from brownie import ERC20EscrowCounter, config, network, interface
+from brownie import ERC20EscrowCloneFactory, config, network, interface
 from web3 import Web3
 import time
 
 
+
+
 def deploy_escrow_contract(account):
-    escrow_contract = ERC20EscrowCounter.deploy(
+    escrow_contract = ERC20EscrowCloneFactory.deploy( 
         {"from": account},
         publish_source=config["networks"][network.show_active()]["verify"],
     )
     return escrow_contract
 
+def clone_escrow_contract(account, escrow_clone, og_escrow_contract):
+    clone_contract = escrow_clone.createClone(og_escrow_contract, {"from": account})
+    return clone_contract
 
 def approve_token_transfer(token, sender, account, amount):
     # approve token transfer
@@ -19,10 +24,10 @@ def approve_token_transfer(token, sender, account, amount):
     print("Token transfer approved!")
 
 
-def deposit_to_escrow(escrow_contract, account, amount, expiration_sec, token, cid):
+def deposit_to_escrow(escrow_clone, account, amount, expiration_sec, token, cid):
     # make deposit
     customGasLimit = 500000000000
-    deposit_tx = escrow_contract.deposit(
+    deposit_tx = escrow_clone.deposit(
         cid, amount, expiration_sec, token, {"from": account}
     )
 
@@ -57,19 +62,21 @@ def main():
     contract_address = config["networks"][network.show_active()][contract_name]
     token = interface.IERC20(contract_address)
     cid = "bafybeig2w3jz4y2ps2tf5u42p3l5p4v73wp7zbem3xsn6efb56mlaqd4yq"
+    og_escrow_contract = "0x137759fB8916A451E1ECd4e4b865E6E76a672830"
   #  cid = 'hello'
 
-    #escrow_contract = deploy_escrow_contract(account)
-    escrow_contract = "0x137759fB8916A451E1ECd4e4b865E6E76a672830"
-   # escrow_contract = ERC20EscrowCounter[-1]
-   
+  #  escrow_clone = deploy_escrow_contract(account)
+    escrow_clone = ERC20EscrowCloneFactory[-1]
+ 
+    clone_contract = clone_escrow_contract(account, escrow_clone, og_escrow_contract)
+
     amount = Web3.toWei(2, "ether")
     expiration_sec = 60
 
-    #approve_token_transfer(token, escrow_contract.address, account, amount)
-   # deposit_to_escrow(escrow_contract, account, amount, expiration_sec, token, cid)
-  #  set_payee(escrow_contract, account, non_owner, 1, cid)
-    #withdraw_from_escrow(main_ERC20escrow, account, non_owner, amount)
+    #approve_token_transfer(token, escrow_clone.address, account, amount)
+   # deposit_to_escrow(escrow_clone, account, amount, expiration_sec, token, cid)
+  #  set_payee(escrow_clone, account, non_owner, 1, cid)
+    #withdraw_from_escrow(escrow_clone, account, non_owner, amount)
 
     #time.sleep(expiration_sec)
-    #refund_escrow(main_ERC20escrow, account, non_owner)
+    #refund_escrow(escrow_clone, account, non_owner)
