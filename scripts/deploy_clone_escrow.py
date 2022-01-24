@@ -14,7 +14,7 @@ def deploy_escrow_contract(account):
     return escrow_contract
 
 def clone_escrow_contract(account, escrow_clone, og_escrow_contract):
-    clone_contract = escrow_clone.createClone(og_escrow_contract, {"from": account})
+    clone_contract = escrow_clone.createERC20EscrowCounter(og_escrow_contract, {"from": account})
     return clone_contract
 
 def approve_token_transfer(token, sender, account, amount):
@@ -58,15 +58,15 @@ def main():
     account = get_account()
     #non_owner = get_account(index=1)
     non_owner = "0xA2BFc4B3653F3C6F91EFF29228f5e88A1De1f684"
-    contract_name = 'link_token'
-    contract_address = config["networks"][network.show_active()][contract_name]
-    token = interface.IERC20(contract_address)
-    cid = "bafybeig2w3jz4y2ps2tf5u42p3l5p4v73wp7zbem3xsn6efb56mlaqd4yq"
-    og_escrow_contract = "0x137759fB8916A451E1ECd4e4b865E6E76a672830"
+   # contract_name = 'link_token'
+   # contract_address = config["networks"][network.show_active()][contract_name]
+   # token = interface.IERC20(contract_address)
+   # cid = "bafybeig2w3jz4y2ps2tf5u42p3l5p4v73wp7zbem3xsn6efb56mlaqd4yq"
+    og_escrow_contract = "0x0123310121F72cdFC327d20b1b0BA323877389Fb"
   #  cid = 'hello'
 
-  #  escrow_clone = deploy_escrow_contract(account)
-    escrow_clone = ERC20EscrowCloneFactory[-1]
+    escrow_clone = deploy_escrow_contract(account)
+   # escrow_clone = ERC20EscrowCloneFactory[-1]
  
     clone_contract = clone_escrow_contract(account, escrow_clone, og_escrow_contract)
 

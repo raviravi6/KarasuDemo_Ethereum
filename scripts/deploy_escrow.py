@@ -54,13 +54,13 @@ def main():
     #non_owner = get_account(index=1)
     non_owner = "0xA2BFc4B3653F3C6F91EFF29228f5e88A1De1f684"
     contract_name = 'link_token'
-    contract_address = config["networks"][network.show_active()][contract_name]
-    token = interface.IERC20(contract_address)
+  #  contract_address = config["networks"][network.show_active()][contract_name]
+  #  token = interface.IERC20(contract_address)
     cid = "bafybeig2w3jz4y2ps2tf5u42p3l5p4v73wp7zbem3xsn6efb56mlaqd4yq"
   #  cid = 'hello'
 
-    #escrow_contract = deploy_escrow_contract(account)
-    escrow_contract = "0x137759fB8916A451E1ECd4e4b865E6E76a672830"
+    escrow_contract = deploy_escrow_contract(account)
+    #escrow_contract = "0x137759fB8916A451E1ECd4e4b865E6E76a672830"
    # escrow_contract = ERC20EscrowCounter[-1]
    
     amount = Web3.toWei(2, "ether")

@@ -2,10 +2,10 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "./OwnableUpgradeable.sol";
 
-contract ERC20EscrowCounter is Ownable {
+contract ERC20EscrowCounter is OwnableUpgradeable {
     using Counters for Counters.Counter;
     Counters.Counter private _depositIds;
 
@@ -41,7 +41,10 @@ contract ERC20EscrowCounter is Ownable {
     // deposit id => payee address
     mapping(uint256 => address) public payees;
 
-    constructor() public {}
+    function initialize() public virtual initializer {
+        // SET THE OWNER HERE
+        __Ownable_init();
+    }
 
     function deposit(
         string memory _cid,
