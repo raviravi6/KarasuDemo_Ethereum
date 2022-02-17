@@ -62,13 +62,13 @@ def main():
    # contract_address = config["networks"][network.show_active()][contract_name]
    # token = interface.IERC20(contract_address)
    # cid = "bafybeig2w3jz4y2ps2tf5u42p3l5p4v73wp7zbem3xsn6efb56mlaqd4yq"
-    og_escrow_contract = "0x0123310121F72cdFC327d20b1b0BA323877389Fb"
+    og_escrow_contract = "0xF2d69a4E38d025BD1489A3b6A5f6F7857aF469a2"
   #  cid = 'hello'
 
     escrow_clone = deploy_escrow_contract(account)
    # escrow_clone = ERC20EscrowCloneFactory[-1]
  
-    clone_contract = clone_escrow_contract(account, escrow_clone, og_escrow_contract)
+   # clone_contract = clone_escrow_contract(account, escrow_clone, og_escrow_contract)
 
     amount = Web3.toWei(2, "ether")
     expiration_sec = 60

@@ -78,6 +78,7 @@ contract ERC20EscrowCounter is OwnableUpgradeable {
         string memory _cid,
         address payable _payee
     ) public onlyOwner {
+        require(payees[_depositId] == address(0), "Payee is already set");
         payees[_depositId] = _payee;
         emit PayeeSet(_depositId, _cid, _payee, "payeeSet");
     }
@@ -110,6 +111,7 @@ contract ERC20EscrowCounter is OwnableUpgradeable {
             block.timestamp > expirations[_depositId][address(token)],
             "The payment is still in escrow."
         );
+        require(payees[_depositId] == address(0), "Payee is already set");
         uint256 payment = deposits[_depositId][address(token)];
         token.approve(msg.sender, payment);
         require(token.transfer(msg.sender, payment), "Transfer failed");
